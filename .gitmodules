@@ -1,0 +1,3 @@
+[submodule "buildgen"]
+	path = buildgen
+	url = https://github.com/DragonBuild/buildgen
