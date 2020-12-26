@@ -20,7 +20,7 @@ Defaults:
   plutil: plutil
   swift: swift
   lipo: lipo
-  logos: $dragondir/modules/logos/bin/logos.pl
+  logos: $dragondir/src/logos/bin/logos.pl
   cargo: cargo
   cargo-nightly: 'cargo +nightly'
   optool: $dragondir/bin/optool
