@@ -292,24 +292,27 @@ class Generator(object):
         linker_conds = set()
 
         # Deal with logos preprocessing
-        for f in standardize_file_list(subdir, filedict['logos_files']):
-            used_rules.add('logos')
-            linker_conds.add('-lobjc')
+        if 'logos_files' in filedict:
+            for f in standardize_file_list(subdir, filedict['logos_files']):
+                used_rules.add('logos')
+                linker_conds.add('-lobjc')
 
-            name, ext = os.path.split(f)[1], os.path.splitext(f)[1]
-            if ext == '.x':
-                build_state.append(Build(f'$builddir/logos/{name}.m', 'logos', f))
-                filedict['objc_files'].append(f'$builddir/logos/{name}.m')
-            elif ext == '.xm':
-                build_state.append(Build(f'$builddir/logos/{name}.mm', 'logos', f))
-                filedict['objcxx_files'].append(f'$builddir/logos/{name}.mm')
-                linker_conds.add('-lc++')
+                name, ext = os.path.split(f)[1], os.path.splitext(f)[1]
+                if ext == '.x':
+                    build_state.append(Build(f'$builddir/logos/{name}.m', 'logos', f))
+                    filedict.setdefault('objc_files', []) # Create a list here if it doens't exist
+                    filedict['objc_files'].append(f'$builddir/logos/{name}.m')
+                elif ext == '.xm':
+                    build_state.append(Build(f'$builddir/logos/{name}.mm', 'logos', f))
+                    filedict.setdefault('objcxx_files', [])
+                    filedict['objcxx_files'].append(f'$builddir/logos/{name}.mm')
+                    linker_conds.add('-lc++')
 
         # Deal with compilation
         for a in self.project_variables['archs']:
             arch_specific_object_files = []
 
-            for ftype in (f for f in FILE_RULES if FILE_RULES[f] is not None):
+            for ftype in (f for f in FILE_RULES if FILE_RULES[f] is not None and f in filedict):
                 ruleid = f'{FILE_RULES[ftype]}{a}'
                 for f in standardize_file_list(subdir, filedict[ftype]):
                     name = os.path.split(f)[1]

@@ -46,7 +46,8 @@ def classify(filedict: dict) -> dict:
             '.x': 'logos_files',
             '.xm': 'logos_files',
         }[ext]].append(f)
-    return filedict
+    # Clear out empty keys
+    return {key: value for (key, value) in filedict.items() if value != []}
 
 
 
@@ -258,9 +259,6 @@ def load_old_format(file: object, root: object = True) -> dict:
             moddict[subproject['name']] = {i: v for (i, v) in subproject.items() if i not in ['name', 'icmd']}
         return moddict
 
-
-
-
 def standardize_file_list(subdir: str, files: list) -> list:
     '''Strip list of empty strings and evaluate globbed paths.'''
 
@@ -270,7 +268,7 @@ def standardize_file_list(subdir: str, files: list) -> list:
             continue
 
         if '*' in filename:
-            ret.extend(f[len(subdir):] for f in glob.glob(subdir + filename,
+            ret.extend('.' + f[len(subdir):] for f in glob.glob('.' + subdir + filename,
                                                           recursive=True))
             continue
 
