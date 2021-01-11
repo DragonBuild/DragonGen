@@ -217,7 +217,7 @@ class Generator(object):
         if len(os.listdir(os.environ['DRAGONBUILD'] + '/toolchain')) > 1:
             project_dict['ld'] = 'ld64'
             project_dict.update({k: f'$dragondir/toolchain/linux/iphone/bin/$toolchain-prefix' 
-                + module_variables[k] for k in [
+                + project_dict[k] for k in [
                 'cc',
                 'cxx',
                 'lipo',
@@ -226,7 +226,7 @@ class Generator(object):
                 'swift',
             ]})
             project_dict.update({k: '$dragondir/toolchain/linux/iphone/bin/' 
-                + module_variables[k] for k in [
+                + project_dict[k] for k in [
                 'ld',
                 'codesign',
             ]})
