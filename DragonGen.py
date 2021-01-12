@@ -182,7 +182,7 @@ class Generator(object):
 
         if 'triple' in project_dict and project_dict['triple'] != '':
             project_dict['triple'] = '-target ' + os.popen('clang -print-target-triple').read().strip() \
-                if 'MACHINE' in project_dict['triple'] else project_dict['triple']
+                if 'MACHINE' in project_dict['triple'] else '-target ' + project_dict['triple']
 
         
         # A few variables that need to be renamed
