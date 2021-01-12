@@ -196,13 +196,19 @@ def interpret_theos_makefile(file: object, root: object = True) -> dict:
     if hassubproj and 'SUBPROJECTS' in variables:
         modules = modules + variables['SUBPROJECTS'].split(' ')
 
+    rename_counter = 1
     for module in modules:
         if os.environ['DGEN_DEBUG']:
             print("\n\n", file=sys.stderr)
             pprint("modules:" + str(modules), stream=sys.stderr)
             print("\n\n", file=sys.stderr)
         if module != '.' and os.path.exists(module + '/Makefile'):
-            mod_dicts.append(interpret_theos_makefile(open(module + '/Makefile'), root=False))
+            new = interpret_theos_makefile(open(module + '/Makefile'), root=False)
+            if new['name'].lower() == project['name'].lower():
+                rename_counter += 1
+                new['name_override'] = new['name']
+                new['name'] = new['name'] + str(rename_counter)
+            mod_dicts.append(new)
 
     i = 0
     for mod in mod_dicts:
