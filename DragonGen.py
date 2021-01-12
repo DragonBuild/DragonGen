@@ -215,14 +215,8 @@ class Generator(object):
         # Specify toolchain paths
         # TODO: maybe we can use `find` to track down the binaries and figure out prefixes?
         if len(os.listdir(os.environ['DRAGONBUILD'] + '/toolchain')) > 1:
-<<<<<<< HEAD
-            project_dict['ld'] = 'ld64'
-            project_dict.update({k: f'$dragondir/toolchain/linux/iphone/bin/$toolchain-prefix' 
-                + module_variables[k] for k in [
-=======
             project_dict.update({k: f'$dragondir/toolchain/linux/iphone/bin/'
                 + project_dict[k] for k in [
->>>>>>> 5e75474... Fixes for Linux+Theos
                 'cc',
                 'cxx',
                 'lipo',
@@ -231,16 +225,9 @@ class Generator(object):
                 'swift',
                 'ld',
             ]})
-<<<<<<< HEAD
-            project_dict.update({k: '$dragondir/toolchain/linux/iphone/bin/' 
-                + module_variables[k] for k in [
-                'ld',
-                'codesign',
-=======
             project_dict.update({k: '$dragondir/toolchain/linux/iphone/bin/'
                 + project_dict[k] for k in [
                     'codesign',
->>>>>>> 5e75474... Fixes for Linux+Theos
             ]})
 
         # TODO: lazy hack
