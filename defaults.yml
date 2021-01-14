@@ -225,6 +225,7 @@ Types:
       - raw
     variables:
       install_location: '/usr/bin'
+      lopts: ''
       build_target_file: '$proj_build_dir/$stagedir/$location/$name'
       stage2:
         - 'true;'
@@ -236,6 +237,7 @@ Types:
       - raw
     variables:
       install_location: '/usr/bin'
+      lopts: ''
       build_target_file: '$proj_build_dir/$stagedir/$location/$name'
       stage2:
         - 'true;'
@@ -247,6 +249,7 @@ Types:
       - raw
     variables:
       install_location: '/usr/lib'
+      lopts: ''
       build_target_file: '$proj_build_dir/$stagedir/$location/$name.a'
       stage2:
         - 'true;'
