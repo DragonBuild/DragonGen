@@ -592,11 +592,20 @@ def main():
     else:
         raise FileNotFoundError
     
+    dragon = "./.dragon/"
+    if not os.path.exists(f'{dragon}env/'):
+        os.mkdir(f'{dragon}env/')
+
+    envSource = open(f'{dragon}env/variables', "w")
+    envSource.write("#!/bin/sh\n")
+
     dbstate("Generating build scripts")
     for key in config:
         if key in META_KEYS:
+            if not META_KEYS[key] == None:
+                envSource.write(f'export {META_KEYS[key]}="{config[key]}"')
             continue
-        
+        envSource.close()
         # Hack to run a bash command in the context of DragonGen from a DragonMake file
         # TODO: remove this when the main dragon script is pythonized
         if key == 'exports':
