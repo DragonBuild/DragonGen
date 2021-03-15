@@ -603,7 +603,7 @@ def main():
     for key in config:
         if key in META_KEYS:
             if not META_KEYS[key] == None:
-                envSource.write(f'export {META_KEYS[key]}="{config[key]}"')
+                envSource.write(f'export {META_KEYS[key]}="{config[key]}"\n')
             continue
         envSource.close()
         # Hack to run a bash command in the context of DragonGen from a DragonMake file
