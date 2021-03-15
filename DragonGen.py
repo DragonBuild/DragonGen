@@ -592,11 +592,11 @@ def main():
     else:
         raise FileNotFoundError
     
-    dragon = "./.dragon/"
-    if not os.path.exists(f'{dragon}env/'):
-        os.mkdir(f'{dragon}env/')
+    dragonDir = "./.dragon/"
+    if not os.path.exists(f'{dragonDir}env/'):
+        os.mkdir(f'{dragonDir}env/')
 
-    envSource = open(f'{dragon}env/variables', "w")
+    envSource = open(f'{dragonDir}env/variables', "w")
     envSource.write("#!/bin/sh\n")
 
     dbstate("Generating build scripts")
